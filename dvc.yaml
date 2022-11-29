@@ -1,0 +1,25 @@
+stages:
+  process:
+    cmd: python dvc_demo/process.py
+    deps:
+      - dvc_demo/process.py
+    outs:
+      - data/train.csv
+      - data/test.csv
+  train:
+    cmd: python dvc_demo/train.py
+    deps:
+      - dvc_demo/train.py
+      - data/train.csv
+    params:
+      - model
+    outs:
+      - models/model.pkl
+  evaluate:
+    cmd: python dvc_demo/evaluate.py
+    deps:
+      - models/model.pkl
+      - dvc_demo/evaluate.py
+      - data/test.csv
+    metrics:
+      - metrics.json

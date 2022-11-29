@@ -1,0 +1,3 @@
+model:
+  num_hidden_layer: 5
+  hidden_layer_size: 2

@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  process:
+    cmd: python dvc_demo/process.py
+    deps:
+    - path: dvc_demo/process.py
+      md5: 448b1fba2a1eb4874f1f90f4a479e71a
+      size: 549
+    outs:
+    - path: data/test.csv
+      md5: a8fbece257676522fbaa001aa31a52f3
+      size: 379239
+    - path: data/train.csv
+      md5: ceb6ed29d41181ac0c71837cf1c4cc1e
+      size: 1515991
+  train:
+    cmd: python dvc_demo/train.py
+    deps:
+    - path: data/train.csv
+      md5: ceb6ed29d41181ac0c71837cf1c4cc1e
+      size: 1515991
+    - path: dvc_demo/train.py
+      md5: 3ff7eb1d7ff4427834338eabee120026
+      size: 681
+    params:
+      params.yaml:
+        model:
+          num_hidden_layer: 5
+          hidden_layer_size: 2
+    outs:
+    - path: models/model.pkl
+      md5: fef458324b6dd533c1078f34ac767853
+      size: 4507
+  evaluate:
+    cmd: python dvc_demo/evaluate.py
+    deps:
+    - path: data/test.csv
+      md5: a8fbece257676522fbaa001aa31a52f3
+      size: 379239
+    - path: dvc_demo/evaluate.py
+      md5: 97dc4f7b237fa25b3bdbe404db7a5767
+      size: 688
+    - path: models/model.pkl
+      md5: fef458324b6dd533c1078f34ac767853
+      size: 4507
+    outs:
+    - path: metrics.json
+      md5: e3a25bdb663a37aacc1fc8e9b408e3a3
+      size: 54

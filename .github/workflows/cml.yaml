@@ -1,0 +1,29 @@
+name: model-training
+on: [push]
+env:
+  REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    container: ghcr.io/iterative/cml:0-dvc2-base1
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: DVC repro & push
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          pip install poetry
+          poetry install
+          poetry run dvc pull
+          poetry run dvc repro -f
+          poetry run dvc push
+      - name: Create CML report
+        run: |
+          # Post CML report as a comment in GitHub
+          echo "## Metrics" >> report.md
+          echo "These are the metrics produced during the CICD" >> report.md
+          cat metrics.json >> report.md
+          cml comment update --pr report.md
