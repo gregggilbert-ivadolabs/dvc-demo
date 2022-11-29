@@ -20,10 +20,12 @@ jobs:
           poetry run dvc pull
           poetry run dvc repro -f
           poetry run dvc push
+      - name: Merge models & metrics to current PR
+        run: |
+          cml pr create --merge models/* metrics.json
       - name: Create CML report
         run: |
           # Post CML report as a comment in GitHub
           echo "## Metrics" >> report.md
-          echo "These are the metrics produced during the CICD" >> report.md
           cat metrics.json >> report.md
           cml comment update --pr report.md

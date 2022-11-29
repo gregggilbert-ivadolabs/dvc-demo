@@ -20,17 +20,17 @@ stages:
       md5: ceb6ed29d41181ac0c71837cf1c4cc1e
       size: 1515991
     - path: dvc_demo/train.py
-      md5: 3ff7eb1d7ff4427834338eabee120026
-      size: 681
+      md5: 0486c396d0088b563920a7e251e34938
+      size: 637
     params:
       params.yaml:
         model:
-          num_hidden_layer: 5
-          hidden_layer_size: 2
+          num_hidden_layer: 7
+          hidden_layer_size: 3
     outs:
     - path: models/model.pkl
-      md5: fef458324b6dd533c1078f34ac767853
-      size: 4507
+      md5: 71ee9882ea79f77dfa6684073406be44
+      size: 8733
   evaluate:
     cmd: python dvc_demo/evaluate.py
     deps:
@@ -41,9 +41,9 @@ stages:
       md5: 97dc4f7b237fa25b3bdbe404db7a5767
       size: 688
     - path: models/model.pkl
-      md5: fef458324b6dd533c1078f34ac767853
-      size: 4507
+      md5: 71ee9882ea79f77dfa6684073406be44
+      size: 8733
     outs:
     - path: metrics.json
-      md5: e3a25bdb663a37aacc1fc8e9b408e3a3
+      md5: a675a8f19dee9fb93b94a2a4d921b94a
       size: 54

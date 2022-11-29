@@ -14,7 +14,8 @@ stages:
     params:
       - model
     outs:
-      - models/model.pkl
+      - models/model.pkl:
+          cache: false
   evaluate:
     cmd: python dvc_demo/evaluate.py
     deps:
@@ -22,4 +23,5 @@ stages:
       - dvc_demo/evaluate.py
       - data/test.csv
     metrics:
-      - metrics.json
+      - metrics.json:
+          cache: false
