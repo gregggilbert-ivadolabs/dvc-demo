@@ -11,8 +11,6 @@ from utils import load_yaml
 def train():
     conf = load_yaml('params.yaml')['model']
     model = MLPRegressor(
-        solver='lbfgs',
-        alpha=1e-5,
         hidden_layer_sizes=(
             conf['num_hidden_layer'],
             conf['hidden_layer_size'],
