@@ -25,12 +25,12 @@ stages:
     params:
       params.yaml:
         model:
-          num_hidden_layer: 7
+          num_hidden_layer: 24
           hidden_layer_size: 3
     outs:
     - path: models/model.pkl
-      md5: 71ee9882ea79f77dfa6684073406be44
-      size: 8733
+      md5: a42e9be07d627f81c97dcc1a206dc187
+      size: 12632
   evaluate:
     cmd: python dvc_demo/evaluate.py
     deps:
@@ -41,9 +41,9 @@ stages:
       md5: 97dc4f7b237fa25b3bdbe404db7a5767
       size: 688
     - path: models/model.pkl
-      md5: 71ee9882ea79f77dfa6684073406be44
-      size: 8733
+      md5: a42e9be07d627f81c97dcc1a206dc187
+      size: 12632
     outs:
     - path: metrics.json
-      md5: a675a8f19dee9fb93b94a2a4d921b94a
+      md5: 5741c3d18222e6da8425b5911b4952bf
       size: 54
